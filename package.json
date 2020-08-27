@@ -1,0 +1,22 @@
+{
+  "name": "eth-exp01",
+  "version": "1.0.0",
+  "description": "Ethereum Project Setup Practice",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karthik",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  },
+  "dependencies": {
+    "sweetalert": "^2.1.2",
+    "web3": "^1.2.2"
+  }
+}
