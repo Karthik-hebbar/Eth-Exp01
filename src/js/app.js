@@ -308,7 +308,7 @@ App = {
         }
       }
     }
-    console.log("Working");
+
     function draw1(candicount) {
       console.log();
       $("#result").html("Tie between all " + candicount);
@@ -318,7 +318,7 @@ App = {
       $("#result").html("There's been a tie between " + x + " and " + y);
       $("form").hide();
     }
-
+    console.log("working");
     //render block list
     var number = [];
     var hash = [];
