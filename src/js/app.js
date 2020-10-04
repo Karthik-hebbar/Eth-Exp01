@@ -308,7 +308,7 @@ App = {
         }
       }
     }
-
+    console.log("Working");
     function draw1(candicount) {
       console.log();
       $("#result").html("Tie between all " + candicount);
