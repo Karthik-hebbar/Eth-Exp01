@@ -1,10 +1,43 @@
 //get account
 function getAccount() {
   return new Promise((resolve, reject) => {
-    web3.eth.getCoinbase(function (err, account) {
+    web3.eth.getCoinbase(async function (err, account) {
       if (err) {
         return reject(err);
       }
+
+      //<Display image for each account>
+
+      try {
+        const UserDisplay = await $.getJSON("Display.json");
+        // Instantiate a new truffle contract from the artifact
+        App.contracts.User = TruffleContract(UserDisplay);
+        // Connect provider to interact with contract
+        App.contracts.User.setProvider(App.web3Provider);
+        // Get the contract instance
+        App.contract1 = await App.contracts.User.deployed();
+
+        App.contracts.User.deployed().then((instance) => {
+          instance1 = instance;
+
+          instance1.usercount().then((count) => {
+            for (let i = 1; i <= count; i++) {
+              instance.Users(i).then((user) => {
+                var address = user[1];
+                var pic = user[2];
+
+                if (address == account) {
+                  $("#dp").attr("src", pic);
+                }
+              });
+            }
+          });
+        });
+      } catch (e) {
+        console.log(e);
+      }
+
+      // </Dp for each account>
 
       console.log("Account is:" + App.account);
 
@@ -94,6 +127,7 @@ App = {
   contract: null,
   hasVoted: false,
   blocks: null,
+  contract1: null,
 
   init: function () {
     return App.initWeb3();
@@ -178,8 +212,9 @@ App = {
     var count = await App.contract.voterc();
 
     var candicount = await App.contract.candidatesCount();
+    var votelimit = 6;
 
-    if (count == 6) {
+    if (count == votelimit) {
       App.contracts.Election.deployed().then(function (instance) {
         Elec = instance;
 
@@ -240,16 +275,35 @@ App = {
           });
         }
       } else {
+        var Result = $(".container1");
         for (let k = 1; k <= candicount; k++) {
           Elec.candidates(k).then((candidates1) => {
             var name = candidates1[1];
+            var winnerimage = candidates1[2];
             var votecc = candidates1[3];
 
-            if (max4 == votecc) {
-              $("#headline").html("The Winner is " + name);
+            var final = (votecc / votelimit) * 100 + "%";
 
+            if (max4 == votecc) {
+              $(".container1").show();
+              $("#winner").show();
               $("form").hide();
+              $("#result").html("The Winner is " + name);
+
+              // $("#p1").html(name);
+
+              // $("#p1").width(final);
             }
+            // if (max4 > votecc) {
+            //   var template =
+            //     "<div class='progress'> <div class='progress-bar progress-bar-success' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:" +
+            //     final +
+            //     "'>" +
+            //     name +
+            //     "</div></div>";
+
+            //   Result.append(template);
+            // }
           });
         }
       }
@@ -257,11 +311,11 @@ App = {
 
     function draw1(candicount) {
       console.log();
-      $("#headline").html("Tie between all " + candicount);
+      $("#result").html("Tie between all " + candicount);
       $("form").hide();
     }
     function draw2(x, y) {
-      $("#headline").html("There's been a tie between " + x + " and " + y);
+      $("#result").html("There's been a tie between " + x + " and " + y);
       $("form").hide();
     }
 
@@ -337,7 +391,7 @@ App = {
               image +
               " style='width: 110px; height: 90px;'></td><td>" +
               name +
-              "</td><td>" +
+              "</td><td >" +
               voteCount +
               "</td></tr>";
             candidatesResults.append(candidateTemplate);

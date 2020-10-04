@@ -12,100 +12,129 @@
     <link href="css/main.css" rel="stylesheet" />
   </head>
 
-  <body style="background-color: rgba(248, 245, 241, 0.747)">
+  <body
+    style="background-color: rgba(248, 245, 241, 0.747); overflow-x: hidden"
+  >
     <!-- <Blocklist> -->
+    <div id="apha">
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+          >&times;</a
+        >
 
-    <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
-        >&times;</a
-      >
+        <div id="col"></div>
+      </div>
+      <!-- </blocklist -->
 
-      <div id="col"></div>
-    </div>
-    <!-- </blocklist -->
+      <!-- <blocktemplate> -->
+      <div id="blocktemplate" style="display: none">
+        <div class="panel-body">
+          <strong>Number</strong>: <span class="Number"></span><br />
+          <strong>Hash</strong>:<br />
+          <span class="hash"></span><br />
+          <strong>Parent Hash</strong>:<br />
+          <span class="Phash"></span><br />
+          <strong>Timestamp</strong>: <br /><span
+            class="time"
+            onmouseover="viewDate(this)"
+            onmouseout=" viewTimestamp(this)"
+          ></span
+          ><br />
+          <strong>Transactions</strong>:<br />
+          <span class="transaction"></span><br />
 
-    <!-- <blocktemplate> -->
-    <div id="blocktemplate" style="display: none">
-      <div class="panel-body">
-        <strong>Number</strong>: <span class="Number"></span><br />
-        <strong>Hash</strong>:<br />
-        <span class="hash"></span><br />
-        <strong>Parent Hash</strong>:<br />
-        <span class="Phash"></span><br />
-        <strong>Timestamp</strong>: <br /><span
-          class="time"
-          onmouseover="viewDate(this)"
-          onmouseout=" viewTimestamp(this)"
-        ></span
-        ><br />
-        <strong>Transactions</strong>:<br />
-        <span class="transaction"></span><br />
+          <br />
+          <br />
+        </div>
 
-        <br />
         <br />
       </div>
+      <!-- </blocktemplate> -->
 
-      <br />
-    </div>
-    <!-- </blocktemplate> -->
+      <div class="container" id="main" style="width: 650px">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- <Arrow(not anymore)> -->
 
-    <div class="container" id="main" style="width: 650px">
-      <div class="row">
-        <div class="col-lg-12">
-          <!-- <Arrow> -->
-          <div
-            style="
-              font-size: 20px;
-              cursor: pointer;
-              margin-left: -84%;
-              margin-top: 1px;
+            <!-- </Arrow> -->
+            <div
+              style="
+                margin-top: -5%;
+                height: 10%;
+                width: 278.5%;
+                font-size: 10%;
+                margin-left: -94%;
+                background-color: black;
+                color: rgb(236, 241, 247);
+              "
+            >
+              <h1 class="text-center" id="headline1">
+                Election Commission of XYZ
+              </h1>
+            </div>
+            <!-- <Arrow> -->
 
-              width: 25%;
-            "
-            onclick="openNav()"
-          >
-            <span id="Blockcount">Blocks:</span>
-            <span class="span"></span>
-            <span class="span"></span>
-          </div>
-          <!-- </Arrow> -->
-          <h1 class="text-center" id="headline" style="margin-top: -3%">
-            Election Commission of XYZ
-          </h1>
-          <hr />
-          <br />
-          <center>
-            <div id="loader"></div>
-          </center>
+            <div
+              style="
+                font-size: 20px;
+                cursor: pointer;
+                margin-left: -84%;
+                margin-top: 1px;
 
-          <div id="content" style="display: none">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Party Symbol</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Votes</th>
-                </tr>
-              </thead>
-              <tbody id="candidatesResults"></tbody>
-            </table>
-            <hr />
-            <form onSubmit="App.castVote(); return false;">
-              <div class="form-group">
-                <label for="candidatesSelect">Select Candidate</label>
-                <select class="form-control" id="candidatesSelect"></select>
-              </div>
-              <button
-                type="submit"
-                class="btn btn-primary"
-                style="margin-left: 3%; width: 540px"
-              >
-                Vote
-              </button>
+                width: 25%;
+              "
+              onclick="openNav()"
+            >
+              <span id="Blockcount">Blocks:</span>
+              <span class="span"></span>
+              <span class="span"></span>
+            </div>
+            <!-- </Arrow> -->
+
+            <br />
+            <img
+              src="img/No_DP.jpg"
+              id="dp"
+              height="80"
+              width="80"
+              style="margin-left: 165%; margin-top: -20.4%; border-radius: 50%"
+            />
+
+            <center>
+              <h1 id="result" style="margin-top: -5%"></h1>
+              <div id="loader"></div>
+            </center>
+            <div id="content" style="display: none">
+              <table class="table" style="margin-top: 8%">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Party Symbol</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Votes</th>
+                  </tr>
+                </thead>
+                <tbody id="candidatesResults"></tbody>
+              </table>
+
               <hr />
-            </form>
-            <p id="accountAddress" class="text-center"></p>
+              <form onSubmit="App.castVote(); return false;">
+                <div class="form-group">
+                  <label for="candidatesSelect">Select Candidate</label>
+                  <select class="form-control" id="candidatesSelect"></select>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="margin-left: 3%; width: 540px"
+                >
+                  Vote
+                </button>
+              </form>
+
+              <hr />
+              <p id="accountAddress" class="text-center"></p>
+            </div>
           </div>
         </div>
       </div>
